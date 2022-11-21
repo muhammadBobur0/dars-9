@@ -2,11 +2,16 @@ const http = require('http')
 const Express = require('./lib/express')
 const { read , write} = require('./utils/model')
 const PORT = process.env.PORT || 5000
+const cors = require('cors')
 
 
 
 function httpServer (req, res) {
   const app = new Express(req, res)
+  cors({
+    origin : '*'
+  })
+  
   app.get('/todos', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     let { completed } = req.query
@@ -30,6 +35,7 @@ function httpServer (req, res) {
   })
 
   app.delete('/todos', async (req, res)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*')
     let {id} = await req.body
     let data = read('todos')
     try {
@@ -43,7 +49,7 @@ function httpServer (req, res) {
       res.end(JSON.stringify({status:400, message:error.message, }))
     }
   })
-  
+
   app.put('/todos', async (req, res)=>{
     let {id, title, completed} = await req.body
     let data = read('todos')
