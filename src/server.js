@@ -4,7 +4,6 @@ const { read , write} = require('./utils/model')
 const express = require('express')
 const app = express()
 const PORT = process.env.PORT || 5000
-const cors = require('cors');
 
 
 
@@ -13,7 +12,7 @@ function httpServer (req, res) {
   
     res.setHeader('Access-Control-Allow-Origin', '*'),
     res.setHeader('Access-Control-Allow-Methods', '*')
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-with, Content-Type, Accept')
+    res.setHeader('Access-Control-Allow-Headers', '*')
     
     
     app.get('/todos', (req, res) => {
