@@ -7,18 +7,22 @@ const PORT = process.env.PORT || 5000
 
 function httpServer (req, res) {
   const app = new Express(req, res)
-  app.get('/users', (req, res) => {
-    let users = read('users')
+  app.get('/todos', (req, res) => {
+    let users = read('todos')
     res.json(users)
   })
+
   app.get('/todos', (req, res) => {
     let { completed } = req.query
-    let todos = read('todos');
-    let data = todos.filter(todo => todo.completed.toString() == completed)
-    if(data.length){
-      return res.json(data);
+    if(req.query){
+      let todos = read('todos');
+      let data = todos.filter(todo => todo.completed.toString() == completed)
+      if(data.length){
+        return res.json(data);
+      }
+      res.json(todos)
     }
-    res.json(todos)
+    
   });
   
   
