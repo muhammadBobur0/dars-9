@@ -2,19 +2,15 @@ const http = require('http')
 const Express = require('./lib/express')
 const { read , write} = require('./utils/model')
 const PORT = process.env.PORT || 5000
-const cors = require('cors')
 
 
 
 function httpServer (req, res) {
   const app = new Express(req, res)
-  cors({
-    'Access-Control-Allow-Origin': '*',
-    credentials:true
-  })
-  
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', '*')
+
   app.get('/todos', (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*')
     let { completed } = req.query
     let todos = read('todos');
     let data = todos.filter(todo => todo.completed.toString() == completed)
@@ -37,7 +33,6 @@ function httpServer (req, res) {
   
   app.delete('/todos', async (req, res)=>{
     res.setHeader('Access-Control-Allow-Origin', 'https://stellular-liger-384c96.netlify.app')
-    res.setHeader('Access-Control-Allow-Methods', '*')
     let {id} = await req.body
     let data = read('todos')
     try {
