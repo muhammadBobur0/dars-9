@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 5000
 function httpServer (req, res) {
   const app = new Express(req, res)
   app.get('/todos', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
     let { completed } = req.query
     let todos = read('todos');
     let data = todos.filter(todo => todo.completed.toString() == completed)
