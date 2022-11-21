@@ -1,8 +1,11 @@
 const http = require('http')
 const Express = require('./lib/express')
 const { read , write} = require('./utils/model')
+const express = require('express')
+const app = express()
 const PORT = process.env.PORT || 5000
-
+const cors = require('cors');
+ app.use(cors());
 
 
 function httpServer (req, res) {
