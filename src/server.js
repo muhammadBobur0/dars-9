@@ -20,6 +20,7 @@ function httpServer (req, res) {
   
   
   app.post('/todos', async (req, res)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*')
     let {title} = await req.body
     let data = read('todos')
     let newtodo = {todoId: data.at(-1).todoId +1 || 1, title:title, completed: false, userId: 2}
@@ -29,6 +30,7 @@ function httpServer (req, res) {
     res.end(JSON.stringify({status:201, message:'you are news created'}))
   })
   app.delete('/todos', async (req, res)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*')
     let {id} = await req.body
     let data = read('todos')
     let newtodo = data.findIndex((e)=> e.todoId == id)
@@ -38,6 +40,7 @@ function httpServer (req, res) {
     res.end(JSON.stringify({status:200, message:'you are news delete', data : newNews}))
   })
   app.put('/todos', async (req, res)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*')
     let {id, title, completed} = await req.body
     let data = read('todos')
     let newtodo = data.find((e)=> e.todoId == id)
