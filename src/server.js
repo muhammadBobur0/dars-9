@@ -36,7 +36,7 @@ function httpServer (req, res) {
   })
   
   app.delete('/todos', async (req, res)=>{
-    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Origin', 'https://stellular-liger-384c96.netlify.app')
     res.setHeader('Access-Control-Allow-Methods', '*')
     let {id} = await req.body
     let data = read('todos')
