@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000
 function httpServer (req, res) {
   const app = new Express(req, res)
   res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET','POST', 'DELETE', 'PUT')
 
   app.get('/todos', (req, res) => {
     let { completed } = req.query
