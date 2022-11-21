@@ -31,11 +31,18 @@ function httpServer (req, res) {
   app.delete('/todos', async (req, res)=>{
     let {id} = await req.body
     let data = read('todos')
-    let newtodo = data.findIndex((e)=> e.todoId == id)
-    let newNews  =  data.splice(newtodo, 1)
-    write('todos', data)
-    res.writeHead(200, {'Content-Type' : 'application/json'})
-    res.end(JSON.stringify({status:200, message:'you are news delete', data : newNews}))
+    try {
+      let newtodo = data.findIndex((e)=> e.todoId == id)
+      let newNews  =  data.splice(newtodo, 1)
+      write('todos', data)
+      res.writeHead(200, {'Content-Type' : 'application/json'})
+      res.end(JSON.stringify({status:200, message:'you are news delete', data : newNews}))
+    } catch (error) {
+      res.writeHead(400, {'Content-Type' : 'application/json'})
+      res.end(JSON.stringify({status:400, message:'you are todo no delete', }))
+    }
+
+   
   })
   app.put('/todos', async (req, res)=>{
     let {id, title, completed} = await req.body
