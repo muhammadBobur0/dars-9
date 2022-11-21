@@ -28,9 +28,8 @@ function httpServer (req, res) {
     res.writeHead(201, {'Content-Type' : 'application/json'})
     res.end(JSON.stringify({status:201, message:'you are news created'}))
   })
-  
+
   app.delete('/todos', async (req, res)=>{
-    res.setHeader('Access-Control-Allow-Origin', '*')
     let {id} = await req.body
     let data = read('todos')
     try {
