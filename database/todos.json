@@ -1,0 +1,14 @@
+[
+    {
+        "todoId": 1,
+        "title": "bugun dars qilmadik",
+        "completed": true,
+        "userId": 1
+    },
+    {
+        "todoId": 2,
+        "title": "ertaga ham dars qilmoqchi emasmiz",
+        "completed": true,
+        "userId": 2
+    }
+]
