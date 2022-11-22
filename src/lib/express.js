@@ -9,11 +9,16 @@ class Express {
     if (this.req.method != 'GET') {
       this.req.body = new Promise((resolve, reject) => {
         let str = '';
-        req.on('data', (chunk) => (str += chunk));
+        try {
+          req.on('data', (chunk) => (str += chunk));
         req.on('end', () => {
           resolve(JSON.parse(str));
         });
-      });
+        } catch (error) {
+          resolve(str)
+        }
+
+      })       
     }
 
     this.res.json = (data) => {
