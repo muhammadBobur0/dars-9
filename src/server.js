@@ -63,20 +63,18 @@ function httpServer(req, res) {
 	});
 
 	app.put('/todos', async (req, res) => {
-		res.setHeader('Access-Control-Allow-Origin', '*');
-		res.setHeader('Access-Control-Allow-Methods', '*');
 		let { id, title, completed } = await req.body;
 		let data = read('todos');
 		let newtodo = data.find((e) => e.todoId == id);
 		title ? (newtodo.title = title) : (newtodo.title = newtodo.title);
-		completed ? (newtodo.completed = true) : (newtodo.completed = false);
+		completed ? (newtodo.completed = completed) : (newtodo.completed = false);
 		write('todos', data);
 		res.writeHead(200, { 'Content-Type': 'application/json' });
 		res.end(
 			JSON.stringify({
 				status: 200,
 				message: 'you are news add',
-				data: newNews,
+				data: newtodo,
 			}),
 		);
 	});
