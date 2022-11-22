@@ -12,7 +12,11 @@ server.listen(PORT, () => console.log('server'));
 
 function httpServer (req, res) {
   const app = new Express(req, res)
-  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader(cors({
+    origin: "*",
+    methods: ['GET', 'POST', 'DELETE', "PUT"],
+    credentials: true
+  }))
   res.setHeader('Access-Control-Allow-Methods', '*')
 
   app.get('/todos',  (req, res) => {
@@ -36,9 +40,7 @@ function httpServer (req, res) {
     res.end(JSON.stringify({status:201, message:'you are news created'}))
   })
   
-  app.delete('/todos',cors({
-    origin: '*'
-  }), async (req, res)=>{
+  app.delete('/todos', async (req, res)=>{
     res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', '*')
     let {id} = await req.body
@@ -55,9 +57,7 @@ function httpServer (req, res) {
     }
   })
   
-  app.put('/todos', cors({
-    origin: '*'
-  }), async (req, res)=>{
+  app.put('/todos', async (req, res)=>{
     res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', '*')
     let {id, title, completed} = await req.body
