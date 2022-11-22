@@ -63,9 +63,10 @@ function httpServer(req, res) {
 	});
 
 	app.put('/todos', async (req, res) => {
-		let { id, title, completed } = await req.body;
+		let { todoId, title, completed } = await req.body;
 		let data = read('todos');
-		let newtodo = data.find((e) => e.todoId == id);
+		try {
+			let newtodo = data.find((e) => e.todoId == todoId);
 		title ? (newtodo.title = title) : (newtodo.title = newtodo.title);
 		completed ? (newtodo.completed = completed) : (newtodo.completed = false);
 		write('todos', data);
@@ -77,6 +78,10 @@ function httpServer(req, res) {
 				data: newtodo,
 			}),
 		);
+		} catch (error) {
+			res.writeHead(400, { 'Content-Type': 'application/json' });
+			res.end(JSON.stringify({ status: 400, message: error.message }));
+		}
 	});
 }
 
