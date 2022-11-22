@@ -25,6 +25,14 @@ class Express {
       this.res.writeHead(200, {'Content-Type': 'application/json'})
       return this.res.end(JSON.stringify(data))
     }
+
+    this.res.setHeader('Access-Control-Allow-Origin', '*');
+    this.res.setHeader('Access-Control-Allow-Credentials', 'true');
+    this.res.setHeader(
+      'Access-Control-Allow-Headers',
+      'Origin, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization',
+      );
+      this.res.setHeader('Access-Control-Expose-Headers', 'Content-Length');
   }
 
   get(route, callback) {
