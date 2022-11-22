@@ -37,6 +37,8 @@ function httpServer (req, res) {
   })
   
   app.delete('/todos',cors(), async (req, res)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', '*')
     let {id} = await req.body
     let data = read('todos')
     try {
@@ -52,10 +54,12 @@ function httpServer (req, res) {
   })
   
   app.put('/todos', cors(), async (req, res)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', '*')
     let {id, title, completed} = await req.body
     let data = read('todos')
     let newtodo = data.find((e)=> e.todoId == id)
-    title? newtodo.title = title : ''
+    title? newtodo.title = title : newtodo.title = newtodo.title
     completed ? newtodo.completed = true : newtodo.completed = false
     write('todos', data)
     res.writeHead(200, {'Content-Type' : 'application/json'})
