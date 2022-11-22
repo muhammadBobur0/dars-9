@@ -18,6 +18,8 @@ function httpServer (req, res) {
   res.setHeader('Access-Control-Allow-Methods', '*')
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Credentials', 'true')
+  res.setHeader("Access-Control-Allow-Headers", "Origin, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+  res.setHeader("Access-Control-Expose-Headers", "Content-Length")
   
   app.get('/todos',  (req, res) => {
     let { completed } = req.query
