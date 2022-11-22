@@ -4,19 +4,17 @@ const { read , write} = require('./utils/model')
 const PORT = process.env.PORT || 5000
 const cors  = require('cors')
 
-const server = http.createServer(httpServer)
 
-server.listen(PORT, () => console.log('server'));
 
 
 
 function httpServer (req, res) {
   const app = new Express(req, res)
-  res.setHeader(cors({
+  cors({
     origin: "*",
     methods: ['GET', 'POST', 'DELETE', "PUT"],
     credentials: true
-  }))
+  })
   res.setHeader('Access-Control-Allow-Methods', '*')
 
   app.get('/todos',  (req, res) => {
@@ -71,3 +69,7 @@ function httpServer (req, res) {
   })
 }
 
+
+const server = http.createServer(httpServer)
+
+server.listen(PORT, () => console.log('server'));
