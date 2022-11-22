@@ -4,15 +4,18 @@ const { read , write} = require('./utils/model')
 const PORT = process.env.PORT || 5000
 const cors  = require('cors')
 
+const server = http.createServer(httpServer)
+
+server.listen(PORT, () => console.log('server'));
+
 
 
 function httpServer (req, res) {
   const app = new Express(req, res)
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', '*')
-  res.setHeader('Access-Control-Allow-Headers', 'X-PINGOTHER','Content-Type')
 
-  app.get('/todos', (req, res) => {
+  app.get('/todos',  (req, res) => {
     let { completed } = req.query
     let todos = read('todos');
     let data = todos.filter(todo => todo.completed.toString() == completed)
@@ -33,7 +36,7 @@ function httpServer (req, res) {
     res.end(JSON.stringify({status:201, message:'you are news created'}))
   })
   
-  app.delete('/todos', async (req, res)=>{
+  app.delete('/todos',cors(), async (req, res)=>{
     let {id} = await req.body
     let data = read('todos')
     try {
@@ -48,7 +51,7 @@ function httpServer (req, res) {
     }
   })
   
-  app.put('/todos', async (req, res)=>{
+  app.put('/todos', cors(), async (req, res)=>{
     let {id, title, completed} = await req.body
     let data = read('todos')
     let newtodo = data.find((e)=> e.todoId == id)
@@ -60,8 +63,3 @@ function httpServer (req, res) {
   })
 }
 
-const server = http.createServer(httpServer)
-
-server.listen(PORT, () => console.log('server ready at'));
-
-server.use(cors())
