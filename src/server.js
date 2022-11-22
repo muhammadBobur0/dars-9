@@ -8,7 +8,6 @@ const PORT = process.env.PORT || 5000
 function httpServer (req, res) {
   const app = new Express(req, res)
   res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', '*')
 
   app.get('/todos', (req, res) => {
     let { completed } = req.query
@@ -51,7 +50,7 @@ function httpServer (req, res) {
     let data = read('todos')
     let newtodo = data.find((e)=> e.todoId == id)
     title? newtodo.title = title : ''
-    completed ? newtodo.completed = true : false
+    completed ? newtodo.completed = true : newtodo.completed = false
     write('todos', data)
     res.writeHead(200, {'Content-Type' : 'application/json'})
     res.end(JSON.stringify({status:200, message:'you are news add', data : newNews}))
@@ -59,5 +58,4 @@ function httpServer (req, res) {
 }
 
 const server = http.createServer(httpServer)
-
 server.listen(PORT, () => console.log('server ready at'));
