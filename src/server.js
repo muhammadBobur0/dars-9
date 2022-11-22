@@ -2,6 +2,7 @@ const http = require('http')
 const Express = require('./lib/express')
 const { read , write} = require('./utils/model')
 const PORT = process.env.PORT || 5000
+const cors  = require('cors')
 
 
 
@@ -62,3 +63,5 @@ function httpServer (req, res) {
 const server = http.createServer(httpServer)
 
 server.listen(PORT, () => console.log('server ready at'));
+
+server.use(cors())
