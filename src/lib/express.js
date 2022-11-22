@@ -27,12 +27,8 @@ class Express {
     }
 
     this.res.setHeader('Access-Control-Allow-Origin', '*');
+    this.res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     this.res.setHeader('Access-Control-Allow-Credentials', 'true');
-    this.res.setHeader(
-      'Access-Control-Allow-Headers',
-      'Origin, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization',
-      );
-      this.res.setHeader('Access-Control-Expose-Headers', 'Content-Length');
   }
 
   get(route, callback) {
