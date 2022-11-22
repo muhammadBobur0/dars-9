@@ -17,8 +17,8 @@ function httpServer (req, res) {
   })
   res.setHeader('Access-Control-Allow-Methods', '*')
   res.setHeader('Access-Control-Allow-Origin', '*')
-
-
+  res.setHeader('Access-Control-Allow-Credentials', 'true')
+  
   app.get('/todos',  (req, res) => {
     let { completed } = req.query
     let todos = read('todos');
@@ -57,7 +57,7 @@ function httpServer (req, res) {
   
   app.put('/todos', async (req, res)=>{
     res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', '*')
+    res.setHeader('Access-Control-Allow-Methods', '*')
     let {id, title, completed} = await req.body
     let data = read('todos')
     let newtodo = data.find((e)=> e.todoId == id)
