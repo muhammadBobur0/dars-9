@@ -16,6 +16,8 @@ function httpServer (req, res) {
     credentials: true
   })
   res.setHeader('Access-Control-Allow-Methods', '*')
+  res.setHeader('Access-Control-Allow-Origin', '*')
+
 
   app.get('/todos',  (req, res) => {
     let { completed } = req.query
@@ -39,8 +41,6 @@ function httpServer (req, res) {
   })
   
   app.delete('/todos', async (req, res)=>{
-    res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', '*')
     let {id} = await req.body
     let data = read('todos')
     try {
